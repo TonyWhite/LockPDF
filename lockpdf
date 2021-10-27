@@ -7,6 +7,7 @@
 
 # OPTIONAL DEPENDENCIES
 # zenity
+
 ARGS="$@"
 APP_NAME="LockPDF"
 
@@ -21,22 +22,20 @@ ERR_DEPENDENCIES=()
 # gjs is installed?
 GJS_VERSION=$(gjs --version)
 ERR_GJS=$?
+if [[ $ERR_GJS != 0 ]]; then
+  ERR_DEPENDENCIES+=("gjs")
+fi
 
 # qpdf is installed?
 QPDF_VERSION=$(qpdf --version | grep "version")
 ERR_QPDF=$?
+if [[ $ERR_QPDF != 0 ]]; then
+  ERR_DEPENDENCIES+=("qpdf")
+fi
 
 # Zenity is installed?
 ZENITY_VERSION=$(zenity --version)
 ERR_ZENITY=$?
-
-ERR_DEPENDENCIES=()
-if [[ $ERR_GJS != 0 ]]; then
-  ERR_DEPENDENCIES+=("gjs")
-fi
-if [[ $ERR_QPDF != 0 ]]; then
-  ERR_DEPENDENCIES+=("qpdf")
-fi
 
 # Determine Application absolute path
 LAUNCHER_FULL_PATH="$(realpath "$0")"
