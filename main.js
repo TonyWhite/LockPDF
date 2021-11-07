@@ -2,11 +2,8 @@
 
 'use strict';
 
-const Gio = imports.gi.Gio;
 imports.gi.versions.Gtk = '3.0';
-const Gtk = imports.gi.Gtk;
-const Gdk = imports.gi.Gdk;
-const GLib = imports.gi.GLib;
+const { Gio, Gtk, Gdk, GLib } = imports.gi;
 
 function getCurrentPath() {
   let stack = (new Error()).stack;
@@ -18,15 +15,16 @@ function getCurrentPath() {
   let file = Gio.File.new_for_path(path);
   return file.get_parent().get_path();
 }
-
 const APPLICATION_DIR = getCurrentPath();
 
 class AppWindow {
-  constructor() {
+  constructor(app) {
     let builder = new Gtk.Builder();
     builder.add_from_file('main.glade');
     this._window = builder.get_object('window');
+    this._window.set_application(app);
     this._window.connect('delete-event', this.quit);
+    Gtk.IconTheme.get_default().add_resource_path(APPLICATION_DIR); //It doesn't seem to work
     
     // Title button
     this._revealer_button_back = builder.get_object('revealer_button_back');
@@ -93,7 +91,7 @@ class AppWindow {
       this._label_pdf_name.set_text(this.FILE_PDF.substring(this.FILE_PDF.lastIndexOf("/")+1));
       this._stack_main.set_visible_child_name('page_about_pdf');
       this._revealer_button_back.set_reveal_child(true);
-      // Mostra i controlli relativi al blocco/sblocco del file.
+      // Show controls to lock/unlock file.
       let requires_password = call_shell('qpdf --requires-password "' + this.FILE_PDF + '"');
       switch (requires_password[3]) {
         case 0:
@@ -210,7 +208,7 @@ class AppWindow {
   }
   
   quit() {
-    Gtk.main_quit();
+    return false;
   }
 }
 
@@ -331,6 +329,18 @@ function get_time() {
   return h+":"+m+":"+s+":"+millis;
 }
 
-Gtk.init(null);
-let app_window = new AppWindow();
-Gtk.main();
+ARGV.unshift(imports.system.programInvocationName); //GTK Libraries (C++) expects ARGV[0] = Application name
+
+GLib.set_prgname("LockPDF");
+const application = new Gtk.Application({
+    application_id: 'org.gtk.'+GLib.get_prgname(),
+    flags: Gio.ApplicationFlags.FLAGS_NONE
+});
+
+application.connect('activate', (app) => {
+    let mainWindow = app.activeWindow;
+    if (!mainWindow) mainWindow = (new AppWindow(app))._window;
+    mainWindow.present();
+});
+
+application.run(ARGV);
