@@ -24,7 +24,8 @@ class AppWindow {
     this._window = builder.get_object('window');
     this._window.set_application(app);
     this._window.connect('delete-event', this.quit);
-    Gtk.IconTheme.get_default().add_resource_path(APPLICATION_DIR); //It doesn't seem to work
+    try { this._window.set_icon_from_file(APPLICATION_DIR + '/lockpdf.svg'); } // Setting app icon
+    catch(err) { this._window.set_icon_name('application-x-executable'); }     // Fallback app icon
     
     // Title button
     this._revealer_button_back = builder.get_object('revealer_button_back');
