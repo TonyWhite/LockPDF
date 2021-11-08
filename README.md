@@ -15,7 +15,7 @@ Simply Drag & Drop file in window. Application recognizes automatically locked P
 ## Info for advanced users
 - Wrapper for qpdf
 - Few dependencies to install (qpdf, gjs)
-- Tested on Debian Stable: the non-latest versions is useful to cover
+- Tested on Debian Stable: the non-latest versions is useful to cover more updated distros
 - Zenity is a weak dependence
 - Launcher writed in bash script
 - Core writed in GJS (Gnome JavaScript)
