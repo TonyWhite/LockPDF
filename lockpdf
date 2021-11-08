@@ -59,7 +59,7 @@ function main()
             export GDK_BACKEND=broadway
             export BROADWAY_DISPLAY=:1
           else
-            show_error_message "Broadway server is not running.\nStar it with:\nbroadwayd -p 8080 :1"
+            show_error_message "Broadway server is not running.\nStart it with:\nbroadwayd -p 8080 :1"
           fi
         ;;
         "light")
@@ -67,6 +67,9 @@ function main()
         ;;
         "dark")
           export GTK_THEME=Adwaita:dark
+        ;;
+        "debug")
+          export GTK_DEBUG=interactive
         ;;
         "--theme="*)
           NAME=${ARGS[${INDEX}]}
@@ -80,7 +83,7 @@ function main()
     done
     
     MESSAGE_ON_CLOSE=false
-    gjs main.js
+    gjs main.js "$@"
     if [[ $? != 0 ]]; then
       show_error_message "${APP_NAME} closed unexpectedly."
     elif [[ $MESSAGE_ON_CLOSE == true ]]; then
@@ -173,4 +176,4 @@ function show_question_message()
 }
 
 # Everything has been initialized. The script can start.
-main
+main "$@"
