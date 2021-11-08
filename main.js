@@ -343,4 +343,4 @@ application.connect('activate', (app) => {
     mainWindow.present();
 });
 
-application.run(ARGV);
+application.run(null);
