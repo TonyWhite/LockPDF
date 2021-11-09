@@ -4,8 +4,23 @@ Simple PDF password manager
 ## How to launch
 Simply double-click on **lockpdf**, or open shell and type `./lockpdf`
 
+![main_window](https://raw.githubusercontent.com/TonyWhite/LockPDF/main/Screenshots/MainWindow.png)
+
 ## How to use
 Simply Drag & Drop file in window. Application recognizes automatically locked PDF and shows you only essential operations.
+
+### Locking Edit
+![locking_edit](https://raw.githubusercontent.com/TonyWhite/LockPDF/main/Screenshots/LockingEdit.gif)
+
+### Unlocking Edit
+![unlocking_edit](https://raw.githubusercontent.com/TonyWhite/LockPDF/main/Screenshots/UnlockingEdit.gif)
+
+### Locking Open
+![locking_open](https://raw.githubusercontent.com/TonyWhite/LockPDF/main/Screenshots/LockingOpen.gif)
+
+### Unlocking Open
+![unlocking_open](https://raw.githubusercontent.com/TonyWhite/LockPDF/main/Screenshots/UnlockingOpen.gif)
+
 
 ## Features
 - Add password to open PDF
