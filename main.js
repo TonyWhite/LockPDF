@@ -136,6 +136,7 @@ class AppWindow {
   
   click_button_open_file() {
     let dialog = new Gtk.FileChooserDialog();
+    dialog.set_title("Open PDF Document");
     dialog.add_button("Open", Gtk.ResponseType.OK);
     dialog.add_button("Cancel", Gtk.ResponseType.CANCEL);
     let response = dialog.run();
