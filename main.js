@@ -136,14 +136,12 @@ class AppWindow {
   
   click_button_open_file() {
     let dialog = new Gtk.FileChooserDialog();
-    dialog.connect('file-activated', dialog_activate);
-    dialog.run();
+    dialog.add_button("Open", Gtk.ResponseType.OK);
+    dialog.add_button("Cancel", Gtk.ResponseType.CANCEL);
+    let response = dialog.run();
     dialog.close();
-    let filename = dialog.get_filename();
-    if ((filename != null)&&(filename.length>0)) this.open_file(filename);
-    
-    function dialog_activate(a) {
-      a.close();
+    if (response == Gtk.ResponseType.OK) {
+      this.open_file(dialog.get_filename());
     }
   }
   
