@@ -147,11 +147,13 @@ class AppWindow {
   }
   
   click_button_lock() {
+    this._window.get_window().set_cursor(Gdk.Cursor.new_for_display(Gdk.Display.get_default(), Gdk.CursorType.WATCH));
     let password_to_open = this._entry_lock_open.get_text();
     let password_to_edit = this._entry_lock_edit.get_text();
     let printable = "none";
     if (this._switch_printable.get_state()) printable = "full";
     let result = call_shell('qpdf --encrypt "' + password_to_open + '" "' + password_to_edit + '" "128" --accessibility=y --extract=n --print=' + printable + ' --assemble=n --annotate=n --form=y --modify-other=n --modify=none --cleartext-metadata --use-aes=y -- "' + this.FILE_PDF + '" --replace-input');
+    this._window.get_window().set_cursor(Gdk.Cursor.new_for_display(Gdk.Display.get_default(), Gdk.CursorType.ARROW));
     
     // Feedback of results
     if ((result[0] == true)&&(result[3] == 0)) {
@@ -172,8 +174,10 @@ class AppWindow {
   }
   
   click_button_unlock_open() {
+    this._window.get_window().set_cursor(Gdk.Cursor.new_for_display(Gdk.Display.get_default(), Gdk.CursorType.WATCH));
     let password = this._entry_unlock_open.get_text();
     let result = call_shell('qpdf --decrypt --password="' + password + '" -- "' + this.FILE_PDF + '" --replace-input');
+    this._window.get_window().set_cursor(Gdk.Cursor.new_for_display(Gdk.Display.get_default(), Gdk.CursorType.ARROW));
     
     // Feedback of results
     if ((result[0] == true)&&(result[3] == 0)) {
@@ -190,8 +194,10 @@ class AppWindow {
   }
   
   click_button_unlock_edit() {
+    this._window.get_window().set_cursor(Gdk.Cursor.new_for_display(Gdk.Display.get_default(), Gdk.CursorType.WATCH));
     let password = this._entry_unlock_edit.get_text();
     let result = call_shell('qpdf --decrypt --password="' + password + '" -- "' + this.FILE_PDF + '" --replace-input');
+    this._window.get_window().set_cursor(Gdk.Cursor.new_for_display(Gdk.Display.get_default(), Gdk.CursorType.ARROW));
     
     // Feedback of results
     if ((result[0] == true)&&(result[3] == 0)) {
