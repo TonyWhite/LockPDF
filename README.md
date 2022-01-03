@@ -32,8 +32,8 @@ Simply Drag & Drop file in window. Application recognizes automatically locked P
 - Few dependencies to install (qpdf, gjs)
 - Tested on Debian Stable: the non-latest versions is useful to cover more updated distros
 - Zenity is a weak dependence
-- Launcher writed in bash script
-- Core writed in GJS (Gnome JavaScript)
+- Launcher written in bash script
+- Core written in GJS (Gnome JavaScript)
 - Check dependencies directly from launcher
 - Launcher can set broadway and light/dark default theme Adwaita
 - Launcher can be edit to show message on close, editing `MESSAGE_ON_CLOSE=false` to `MESSAGE_ON_CLOSE=true`
